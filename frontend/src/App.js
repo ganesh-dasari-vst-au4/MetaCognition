@@ -1,47 +1,62 @@
-import React, { Fragment } from "react";
+import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { connect } from "react-redux";
-import Nav from "./Component/Nav";
-import List from "./Component/List";
-import Login from "./Component/Login";
 import axios from "axios";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { connect } from "react-redux";
 
 class App extends React.Component {
-  componentDidMount = () => {
+  componentDidMount() {
     axios
-      .get("http://localhost:3010/list")
+      .get("http://localhost:3010/student")
       .then((res) => {
-        console.log(res);
-        this.props.dispatch({ type: "list", payload: res.data });
+        this.props.dispatch({ type: "add", payload: res.data.data });
       })
       .catch((err) => {
         console.log(err);
       });
-  };
+  }
+
   render() {
     return (
-      <Fragment>
-        <div className="App container-fluid" style={{ height: "100vh" }}>
-          <BrowserRouter>
-            <Nav />
-
-            <Switch>
-              <Route exact path="/" component={List} />
-
-              <Route path="/home" component={List} />
-              <Route path="/login" component={Login} />
-            </Switch>
-          </BrowserRouter>
+      <div className="container-fluid">
+        <div className="container-fluid mx-auto bg-secondary py-1 mb-5">
+          <h4 className="text-center">MetaCognition</h4>
         </div>
-      </Fragment>
+        <div className="container my-auto mt-5 pt-5">
+          <table className="table table-striped">
+            <thead className="thead-dark">
+              <tr>
+                <th>Student Name</th>
+                <th>Subject</th>
+                <th>Term</th>
+                <th>Department</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.props.data.map((elem) => {
+                return (
+                  <tr>
+                    <td>
+                      {elem.first_name} {elem.last_name}
+                    </td>
+                    <td>{elem.depart.name}</td>
+                    <td>{elem.depart.term}</td>
+                    <td>{elem.depart.depart}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
     );
   }
 }
 
 const fromStore = (state) => {
-  return state;
+  return {
+    data: state.data,
+  };
 };
 
 export default connect(fromStore)(App);

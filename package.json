@@ -1,27 +1,19 @@
 {
-  "name": "auctionsoftware",
+  "name": "backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ganesh-dasari-vst-au4/auctionsoftware.git"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ganesh-dasari-vst-au4/auctionsoftware/issues"
-  },
-  "homepage": "https://github.com/ganesh-dasari-vst-au4/auctionsoftware#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "pg": "^8.2.1",
-    "pg-hstore": "^2.3.3",
-    "sequelize": "^5.21.13"
+    "mongodb": "^3.5.5",
+    "mongoose": "^5.9.7"
   }
 }

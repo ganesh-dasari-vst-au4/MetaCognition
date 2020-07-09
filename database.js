@@ -1,12 +1,20 @@
-const Sequelize = require("sequelize");
+const mongoose = require("mongoose");
 
-const db = new Sequelize("auction", "postgres", "12345", {
-  host: "localhost",
-  dialect: "postgres",
-});
+const mongo_url = "mongodb://localhost:27017/metacognition";
+mongoose.set("useNewUrlParser", true);
+mongoose.set("useFindAndModify", false);
+mongoose.set("useCreateIndex", true);
 
-db.authenticate().then(() => {
-  console.log("DB connection is estabalised");
-});
+mongoose.connect(
+  mongo_url,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  function (err) {
+    if (err) {
+      throw err;
+    } else {
+      console.log(`Successfully connected to ${mongo_url}`);
+    }
+  }
+);
 
-module.exports = db;
+module.exports = mongoose;
